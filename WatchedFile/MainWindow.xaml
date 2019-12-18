@@ -1,0 +1,42 @@
+﻿<Window x:Class="WatchedFile.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        xmlns:local="clr-namespace:WatchedFile"
+        xmlns:vm="clr-namespace:WatchedFile.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525" Closing="Window_Closing" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <CollectionViewSource x:Key="SortedWatchedFiles" Source="{Binding WatchedFiles}">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="Name" Direction="Ascending" />
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+    </Window.Resources>
+    <Grid>
+        <TreeView ItemsSource="{Binding Source={StaticResource SortedWatchedFiles}}" Name="TV" Width="200" Margin="10" HorizontalAlignment="Left"
+                  AllowDrop="True" Drop="TV_Drop" MouseMove="TV_MouseMove" MouseLeftButtonUp="TV_MouseLeftButtonUp" SelectedItemChanged="TV_SelectedItemChanged">
+            <TreeView.ContextMenu>
+                <ContextMenu Name="CM">
+                    <MenuItem Name="mi_AddFolder" Header="AddFolder" Click="Mi_AddFolder_Click"></MenuItem>
+                    <MenuItem Name="mi_AddFile" Header="AddFile" Click="Mi_AddFile_Click"></MenuItem>
+                </ContextMenu>
+            </TreeView.ContextMenu>
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type vm:WatchedFile}" ItemsSource="{Binding Subs}" >
+                    <StackPanel Orientation="Horizontal" ToolTip="{Binding Path}" MouseRightButtonUp="StackPanel_MouseRightButtonUp">
+                        <Image Height="20" Width="20" Source="{Binding DisplayImage}"/>
+                        <TextBlock Text="{Binding Name}" Width="80"  Margin="10,0,0,0" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </TreeView.Resources>
+        </TreeView>
+        <Grid Name="G_Show" Margin="220,10,10,45"/>
+        <UniformGrid Margin="220,282,10,10" VerticalAlignment="Bottom" Columns="2" Height="22">
+            <Button x:Name="B_Explorer" Content="Show in Explorer" Click="B_Explorer_Click" Visibility="Collapsed" Padding="0"/>
+            <Button x:Name="B_Open" Content="Open with Standard" Click="B_Open_Click" Visibility="Collapsed" Padding="0"/>
+        </UniformGrid>
+    </Grid>
+</Window>

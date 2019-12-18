@@ -1,0 +1,15 @@
+﻿<Window x:Class="WatchedFile.Splash"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WatchedFile"
+        mc:Ignorable="d"
+        Title="Splash" Height="200" Width="200" AllowsTransparency="True" WindowStyle="None" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+    <Window.Background>
+        <ImageBrush ImageSource="media/testsplash.png"/>
+    </Window.Background>
+    <Grid>
+        <ProgressBar Name="PB" Height="18" Margin="20,151,20,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" />
+    </Grid>
+</Window>
